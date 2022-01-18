@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+      
+</head> 
+
+<body>  
+    <div>
+        <div class="container mt-5 pt-5 col-md-5" style="margin: 36px;">
+
+            <div id="autocomplete" class="autocomplete">
+                <input class="autocomplete-input" id="getdestination" placeholder="Enter Destination">
+                <ul class="autocomplete-result-list"></ul>
+            </div>
+
+            <button type="button" class="btn btn-primary"  onclick="document.getElementById('getdestination').value = ''"
+            style="margin-top: 20px; margin-left: 10px; ">Clear</button>
+
+            </div>
+    </div>
+  </body>
+  <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+  <script>
+  mytoken="pk.eyJ1IjoibmV2ZXJyZXN0IiwiYSI6ImNrcTRtYjUydjB1eDUyd212azA4Z2dmM2IifQ.khy_M242W6MKufitNCdKxw"
+
+  const MAPBOX_BASE = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
+  
+  new Autocomplete('#autocomplete', {
+  
+  search: input => {
+      const url = `${MAPBOX_BASE}${encodeURIComponent(
+  input
+  )}.json?access_token=${mytoken}&limit=5`;
+      return new Promise(resolve => {
+          fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                  resolve(data.features)
+              })
+      })
+  },
+  
+  
+  renderResult: (result, props) => {
+      result=result.place_name
+      let group = ''
+      if (result.index % 3 === 0) {
+          group = `<li class="group">Group</li>`
+      }
+      return `
+  ${group}
+  <li ${props}>
+  <div class="wiki-title">
+  ${result}
+  </div>
+  
+  </li>
+  `
+  },
+  
+  getResultValue: result => result.place_name,
+  onSubmit: result => {
+      console.log("latitude",result.geometry.coordinates[0])
+      console.log("longtitude",result.geometry.coordinates[1])
+      console.log("Place Name",result.place_name)
+  }
+  })
+
+
+
+  
+  </script>  
+</html>
