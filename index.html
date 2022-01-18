@@ -129,6 +129,8 @@ var retlongitude;
  retlongitude = sessionStorage.getItem("getsetlong");
  finallocation = sessionStorage.getItem("getlocation");
 
+       map.setCenter([retlatitude, retlongitude])
+
 
       
     marker.setLngLat([ retlatitude ,retlongitude ])
