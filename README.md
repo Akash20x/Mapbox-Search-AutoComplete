@@ -2,5 +2,5 @@ This will give 5 suggestions of places based on your input and display location 
 
 I just tried to implement the feature shown in Local search with the Geocoding API in mapbox docs. 
 But the problem their is search is included inside maps only and can't used searched place name outside the maps
-but through this we can also use selected place name outside maps as search is not directly linked with maps. 
+but through this we can also use selected place name outside maps. 
 For example we store the place name in our database. 
